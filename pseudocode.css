@@ -1,0 +1,62 @@
+1. [note]: comment titles for your sections for easy organisation. 
+
+2. Import chosen stylesheet (@import) if you have one. 
+
+3. Group together your imported fonts if you have any. 
+
+4. Group together colours you're using.
+    setup a section to define the colours you will use:
+    ($green: #C7C7B0) etc 
+
+5. Once you have grouped together various styles/colours/fonts etc start on tags.
+    ie. create a .calculator class for the whole .calculator object. 
+        within that calculator class, group together styling for various elements.
+        same with buttons etc. etc. 
+        
+6. It's better to work from the outside in ie. focus on styling the body and shape of your calculator first, and then on smaller elements like buttons/fonts/colours.
+
+
+//LAYOUT
+
+// Fonts
+    @import
+
+// Colors
+    $colorName:
+
+body, html {
+
+}
+
+.calculator {
+
+
+
+// Title
+
+    p#title {
+
+    }
+
+    p#tagline {
+
+    }
+
+    input[type='text'] {
+
+    }
+
+// Buttons
+
+    .row (display: block;) {
+        button {
+
+        }
+         .ctrl {
+
+         }
+         .tall {
+
+         }
+    }
+}
