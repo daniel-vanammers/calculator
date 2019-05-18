@@ -1,4 +1,4 @@
-use a class attribute (.) to define:
+<!-- use a class attribute (.) to define:
 .calculator with a p#title and p#tagline
 
 " input(type='text' disabled)#answer " to allow an output line for our button inputs
@@ -22,4 +22,45 @@ then nest 5 sets of .rows below this
     .tall +
 
 .row 5 will have 3 buttons to account for the .tall+ in the row above
-    0, decimal and =
+    0, decimal and = -->
+
+<!DOCTYPE html>
+
+<link rel="stylesheet" type="text/css" href="C:\Users\XPS 15\Desktop\Dev Academy\calculator\index.css">
+
+<div class="calculator-board">
+    <div class="header">
+        <p id="title">Off-Brand Calculator</p>
+        <p id="subtitle">Basic Maths Machine</p>
+    </div>
+    
+    <div class="calculator-screen">
+        <input (type="text" disabled)#answer size="28">
+    </div>
+
+    <div class="calculator-keys">
+            <div style=background-color:#E35638 class="button ctrl">AC</div>
+            <div style=background-color:#E35638 class="button ctrl">CE</div>
+            <div class="button">%</div>
+            <div class="button">÷</div>
+
+            <div class="button">7</div>
+            <div class="button">8</div>
+            <div class="button">9</div>
+            <div class="button">x</div>
+
+            <div class="button">4</div>
+            <div class="button">5</div>
+            <div class="button">6</div>
+            <div class="button">-</div>
+
+            <div class="button">1</div>
+            <div class="button">2</div>
+            <div class="button">3</div>
+            <div class="button tall">+</div>
+
+            <div class="button">0</div>
+            <div class="button">.</div>
+            <div class="button">=</div>
+    </div>
+</div>
