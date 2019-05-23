@@ -1,126 +1,84 @@
+var numString = ''
+var numArray = []
 
+let display = document.getElementById('display')
 
- const calculator = document.querySelector('.calculator')
- const display = calculator.querySelector('.calculator__display')
- const keys = calculator.querySelector('.calculator__keys')
- 
- keys.addEventListener('click', e => {
-   if (e.target.matches('button')) {
-     const key = e.target
-     const action = key.dataset.action
-     const keyContent = key.textContent
-     const displayedNum = display.textContent
-     const previousKeyType = calculator.dataset.previousKeyType
- 
-     Array.from(key.parentNode.children)
-       .forEach(k => k.classList.remove('is-depressed'))
- 
-     if (!action) {
-       if (
-         displayedNum === '0' ||
-         previousKeyType === 'operator' ||
-         previousKeyType === 'calculate'
-       ) {
-         display.textContent = keyContent
-       } else {
-         display.textContent = displayedNum + keyContent
-       }
-       calculator.dataset.previousKeyType = 'number'
-     }
- 
-     if (action === 'decimal') {
-       if (!displayedNum.includes('.')) {
-         display.textContent = displayedNum + '.'
-       } else if (
-         previousKeyType === 'operator' ||
-         previousKeyType === 'calculate'
-       ) {
-         display.textContent = '0.'
-       }
- 
-       calculator.dataset.previousKeyType = 'decimal'
-     }
- 
-     if (
-       action === 'add' ||
-       action === 'subtract' ||
-       action === 'multiply' ||
-       action === 'divide'
-     ) {
-       const firstValue = calculator.dataset.firstValue
-       const operator = calculator.dataset.operator
-       const secondValue = displayedNum
- 
-       if (
-         firstValue &&
-         operator &&
-         previousKeyType !== 'operator' &&
-         previousKeyType !== 'calculate'
-       ) {
-         const calcValue = calculate(firstValue, operator, secondValue)
-         display.textContent = calcValue
-         calculator.dataset.firstValue = calcValue
-       } else {
-         calculator.dataset.firstValue = displayedNum
-       }
- 
-       key.classList.add('is-depressed')
-       calculator.dataset.previousKeyType = 'operator'
-       calculator.dataset.operator = action
-     }
- 
-     if (action === 'clear') {
-       if (key.textContent === 'AC') {
-         calculator.dataset.firstValue = ''
-         calculator.dataset.modValue = ''
-         calculator.dataset.operator = ''
-         calculator.dataset.previousKeyType = ''
-       } else {
-         key.textContent = 'AC'
-       }
- 
-       display.textContent = 0
-       calculator.dataset.previousKeyType = 'clear'
-     }
- 
-     if (action !== 'clear') {
-       const clearButton = calculator.querySelector('[data-action=clear]')
-       clearButton.textContent = 'CE'
-     }
- 
-     if (action === 'calculate') {
-       let firstValue = calculator.dataset.firstValue
-       const operator = calculator.dataset.operator
-       let secondValue = displayedNum
- 
-       if (firstValue) {
-         if (previousKeyType === 'calculate') {
-           firstValue = displayedNum
-           secondValue = calculator.dataset.modValue
-         }
- 
-         display.textContent = calculate(firstValue, operator, secondValue)
-       }
- 
-       calculator.dataset.modValue = secondValue
-       calculator.dataset.previousKeyType = 'calculate'
-     }
-   }
- })
+listen()
 
- const calculate = (n1, operator, n2) => {
-   let result = ''
-   if (operator === 'add') {
-     result = parseFloat(n1) + parseFloat(n2)
-   } else if (operator === 'subtract') {
-     result = parseFloat(n1) - parseFloat(n2)
-   } else if (operator === 'multiply') {
-     result = parseFloat(n1) * parseFloat(n2)
-   } else if (operator === 'divide') {
-     result = parseFloat(n1) / parseFloat(n2)
-   }
- 
-   return result
- }
- 
- 
+function listen () {
+    document.addEventListener('click', getButtonValue)
+}
+
+function getButtonValue () {
+    let button = event.target.value
+    if (!isNaN(button) || button === '.') {
+        number(button)
+    } else if (button === 'AC') {
+        allClear() 
+    } else if (button === 'CE') {
+        clear()
+    } else if (button === '=') {
+        calculate()
+    } else { 
+        storeNumber(button)
+    }
+}
+
+function number(button) {
+    if (button === '.' && numString.includes('.')) {
+        return 
+    } else if (numString.charAt(0) === '0' && button === '0'){
+        return 
+    } else {
+        numString += button
+        display.value = numString
+    }
+}
+
+function allClear() {
+    numString = ''
+    numArray = []
+    display.value = '0'
+}
+
+function clear() {
+    numString = ''
+    display.value = '0'
+}
+
+function storeNumber(button) {
+    if (numString === '' && numArray === '0') {
+    return
+    } else if (numString === '') {
+    numArray.length = numArray.length - 1
+    numArray.push(button)
+    } else {
+    numArray.push(numString)
+    numArray.push(button)
+    numString = ''
+    }
+}
+
+function calculate() {
+    numArray.push(numString)
+    let currentNumber = Number(numArray[0])
+    for (let i = 0; i < numArray.length; i++) {
+    let nextNumber = Number(numArray[i + 1])
+    let symbol = numArray[i]
+        if (symbol === '+') {
+            currentNumber += nextNumber
+        } else if (symbol === '-') {
+            currentNumber -= nextNumber
+        } else if (symbol === '*') {
+            currentNumber *= nextNumber
+        } else if (symbol === '/') {
+            currentNumber /= nextNumber
+        }
+    } 
+    if (currentNumber < 0) {
+      currentNumber = Math.abs(currentNumber) + '-'
+    }
+    display.value = currentNumber
+    numString = currentNumber
+    numArray = []
+}

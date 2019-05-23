@@ -1,0 +1,70 @@
+.calculator {
+  width: 375px;
+  height: 590px;
+  background-color: black;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.input[type="text"] {
+  width: 79%;
+  height: 60px;
+  font-size: 60px;
+  direction: rtl;
+  padding-right: 10px;
+  margin-bottom: 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+.row {
+  display: block;
+}
+
+.button {
+  width: 80px;
+  height: 80px;
+  border: none;
+  color: white;
+  font-size: 25px;
+  margin-bottom: 4px;
+  background-color: #5e5e5e;
+  border-radius: 40px;
+}
+
+.button.wide {
+  width: 164px;
+  height: 80px;
+}
+
+.ctrl {
+  width: 80px;
+  height: 80px;
+  border: none;
+  font-size: 25px;
+  background-color: #bababa;
+  border-radius: 40px;
+}
+
+#equals {
+  background-color: #f9b759;
+}
+
+#add {
+  background-color: #f9b759;
+}
+
+#subtract {
+  background-color: #f9b759;
+}
+
+#multiply {
+  background-color: #f9b759;
+}
+
+#divide {
+  background-color: #f9b759;
+}
